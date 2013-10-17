@@ -1,0 +1,147 @@
+<h1 style ="text-align: center;background-color: #ddd;margin: 0px;border: solid 1px #9C9B9B;color: #585858;line-height: 60px;">THAMIRA ENTERPRISE</h1>
+
+<div class="page-header">
+	<h2>Electricity Bill</h2>
+</div>
+
+<div class="container">
+	<div class="row well">
+		<div class="span7">
+			<div class="form-inline">
+				<label>BILL NO: <b><%= @eb.bill_number %></b></label>
+				<label>DATE: <b><%= Date.today.strftime("%A, %d %B") %></b></label>
+				<label>TIME: <b><%= Time.now.strftime("%I:%M %p") %></b></label>
+			</div>
+		</div>
+	</div>
+
+	<div class='row'>
+		<div class='span8'>
+			<!-- <form class="form-horizontal"> -->
+			<%= form_for @eb, html: {class: "form-horizontal"} do |f| %>
+				<div class="span6 no-left-margin">
+					<div class="control-group">
+						<!-- <label class="control-label">SERVICE NAME</label> -->
+						<%= f.label :service_name, "SERVICE NAME", class: "control-label" %>
+						<div class="controls">
+							<!-- <input type="text" placeholder="Enter Name"> -->
+							<%= f.text_field :service_name, placeholder: "Enter Name" %>
+						</div>
+					</div>
+					<div class="control-group">
+						<!-- <label class="control-label">SERVICE NUMBER</label> -->
+						<%= f.label :service_number, "SERVICE NUMBER", class: "control-label" %>
+						<div class="controls">
+							<!-- <input type="text" placeholder="Enter Service Number"> -->
+							<%= f.text_field :service_number, placeholder: "Enter Service Number" %>
+						</div>
+					</div>
+					<div class="control-group">
+						<!-- <label class="control-label">MOBILE NUMBER</label> -->
+						<%= f.label :mobile_number, "MOBILE NUMBER", class: "control-label" %>
+						<div class="controls">
+							<!-- <input type="text" placeholder="Enter Mob. Number"> -->
+							<%= f.text_field :mobile_number, placeholder: "Enter Mob. Number" %>
+						</div>
+					</div>
+					<div class="control-group">
+						<!-- <label class="control-label">AMOUNT</label> -->
+						<%= f.label :amount, "AMOUNT", class: "control-label" %>
+						<div class="controls">
+							<!-- <input type="text" placeholder="Enter Amount"> -->
+							<%= f.text_field :amount, placeholder: "Enter Amount" %>
+						</div>
+					</div>
+					<div class="control-group">
+						<!-- <label class="control-label">TOTAL</label> -->
+						<%= f.label :total, "TOTAL", class: "control-label" %>
+						<div class="controls">
+							<!-- <input type="text" disabled placeholder="Final Amount Payable"> -->
+							<%= f.text_field :total, placeholder: "Final Amount Payable", readonly: true %>
+						</div>
+					</div>
+				</div>
+				<div class="span2 text-center no-left-margin">
+					<!-- <button type="submit" class="btn btn-primary margin-bottom-20">Print & Save</button> -->
+					<%= f.submit "Print & Save", class: "btn btn-primary margin-bottom-20", id: "print_save_button", 
+					data: {"disable-with" => "Processing.."} %>
+					<%= f.submit "Save", class: "btn btn-primary margin-bottom-20", id: "save_button", "disable-with" => "Processing.." %>
+					<!-- <button type="submit" disabled class="btn btn-primary margin-bottom-20 disabled">Save</button> -->
+				</div>
+			<!-- </form> -->
+			<% end %>
+			<div class='span2 text-center no-left-margin'>
+				<!-- <button type="button" class="btn margin-bottom-20">Clear</button> -->
+				<%= button_tag 'Clear!', class: "btn margin-bottom-20 clear_button" %>
+				<!-- <form class="well well-small"> -->
+				<%= form_tag search_eb_bills_path, method: :get, class: "well well-small" do %>
+					<div class='margin-bottom-20'>
+						<!-- <label class="inline-block", style="font-size:10px">Bill NO</label> -->
+						<!-- <input type="text" class='span1 no-bottom-margin' placeholder="Bill No" id="eb_bill_number_text"> -->
+						<%= text_field_tag 'search', params[:search], placeholder: "Bill No", class: "no-bottom-margin", id: "bill_search", style:"width:80%;font-size:12px" %>
+					</div>
+					<!-- <button type="button" class="btn btn-primary">Search</button> -->
+					<%= submit_tag "Search", class: "btn btn-primary search_button" %>
+				<!-- </form> -->
+				<% end %>
+			</div>
+		</div>
+		<div class="bills span4">
+			<span class="label label-info margin-bottom-10">Last 10 Bills</span>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<th>Bill No.</th>
+					<th>Service No.</th>
+					<th>Total Amt</th>
+				</tr>
+				<% 10.times do %>
+					<tr>
+						<td>xxxxxx-0123</td>
+						<td>87612436512</td>
+						<td>1000</td>
+					</tr>
+				<% end %>
+			</table>
+		</div>
+	</div>
+
+	<div class="row">
+		<form class="export span8">
+			<span class="label label-info margin-bottom-10">Export Data</span>
+			<div class="control-group">
+				<div class="controls">
+					<div class="btn-group">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">From Date
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+
+						</ul>
+					</div>
+					<div class="btn-group">
+						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">To Date
+							<span class="caret"></span>
+						</a>
+						<ul class="dropdown-menu">
+
+						</ul>
+					</div>
+					<button type="submit" class="btn btn-primary">Export</button>
+				</div>
+			</div>
+		</form>
+		<div class="report span4 well well-small no-left-margin">
+			<span class="label label-info margin-bottom-10">Todays Report</span>
+			<table class="table table-bordered table-condensed">
+				<tr>
+					<th>Total Bills</th>
+					<th>Total Bill Amt</th>
+				</tr>
+				<tr>
+					<td>50</td>
+					<td>10000</td>
+				</tr>	
+			</table>
+		</div>
+	</div>
+</div>

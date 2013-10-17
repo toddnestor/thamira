@@ -1,0 +1,15 @@
+.no-left-margin {
+	margin-left: 0px;
+}
+.margin-bottom-10{
+	margin-bottom: 10px;
+}
+.margin-bottom-20{
+	margin-bottom: 20px !important;
+}
+.no-bottom-margin {
+	margin-bottom: 0px !important;
+}
+.inline-block{
+	display: inline-block;
+}
