@@ -94,11 +94,11 @@
 					<th>Service No.</th>
 					<th>Total Amt</th>
 				</tr>
-				<% 10.times do %>
+				<% @last_10_bills.each do |bill|%>
 					<tr>
-						<td>xxxxxx-0123</td>
-						<td>87612436512</td>
-						<td>1000</td>
+						<td><%= link_to bill.bill_number %></td>
+						<td><%= bill.service_number %></td>
+						<td><%= bill.total %></td>
 					</tr>
 				<% end %>
 			</table>
@@ -107,27 +107,10 @@
 
 	<div class="row">
 		<form class="export span8">
-			<span class="label label-info margin-bottom-10">Export Data</span>
-			<div class="control-group">
-				<div class="controls">
-					<div class="btn-group">
-						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">From Date
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu">
-
-						</ul>
-					</div>
-					<div class="btn-group">
-						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">To Date
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu">
-
-						</ul>
-					</div>
-					<button type="submit" class="btn btn-primary">Export</button>
-				</div>
+			<span class="label label-info">Export Data</span>
+			<div>
+				<input type="text" style="margin-top:10px" id="date_picker" placeholder="Select Date">
+				<button type="submit" class="btn btn-primary" id="export_button">Export</button>
 			</div>
 		</form>
 		<div class="report span4 well well-small no-left-margin">
@@ -138,8 +121,8 @@
 					<th>Total Bill Amt</th>
 				</tr>
 				<tr>
-					<td>50</td>
-					<td>10000</td>
+					<td><%= @today_bills.length %></td>
+					<td><%= @today_bills_amount%></td>
 				</tr>	
 			</table>
 		</div>
