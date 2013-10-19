@@ -18,6 +18,9 @@ class EbBill < ActiveRecord::Base
 	def self.last_10_bills
 		order("created_at DESC").limit(10)
 	end
+	def self.bills_at(date)
+		where("DATE(created_at) = DATE(?)", date).order("created_at asc")
+	end
 	private
 		def set_bill_number
 			self.bill_number = self.bill_number

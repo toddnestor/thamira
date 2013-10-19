@@ -6,12 +6,13 @@
 
 <div class="container">
 	<div class="row well">
-		<div class="span7">
-			<div class="form-inline">
+		<div class="span10">
+			<div class="form-inline pull-left">
 				<label>BILL NO: <b><%= @eb.bill_number %></b></label>
 				<label>DATE: <b><%= Date.today.strftime("%A, %d %B") %></b></label>
 				<label>TIME: <b><%= Time.now.strftime("%I:%M %p") %></b></label>
 			</div>
+			<%= link_to "New Bill",eb_bills_path, class:"pull-right btn btn-primary" %>
 		</div>
 	</div>
 
@@ -96,7 +97,7 @@
 				</tr>
 				<% @last_10_bills.each do |bill|%>
 					<tr>
-						<td><%= link_to bill.bill_number %></td>
+						<td><%= link_to bill.bill_number, edit_eb_bill_path(bill) %></td>
 						<td><%= bill.service_number %></td>
 						<td><%= bill.total %></td>
 					</tr>
@@ -106,10 +107,10 @@
 	</div>
 
 	<div class="row">
-		<form class="export span8">
+		<form class="export span8" method="get" action="<%= export_eb_bills_path%>">
 			<span class="label label-info">Export Data</span>
 			<div>
-				<input type="text" style="margin-top:10px" id="date_picker" placeholder="Select Date">
+				<input type="text" style="margin-top:10px" id="date_picker" placeholder="Select Date" name="export_date">
 				<button type="submit" class="btn btn-primary" id="export_button">Export</button>
 			</div>
 		</form>

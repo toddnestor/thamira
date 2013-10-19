@@ -45,6 +45,9 @@ class EbBillsController < ApplicationController
 		end
 	end
 	def edit
+		@today_bills = EbBill.today_bills
+		@today_bills_amount = @today_bills.sum(:total)
+		@last_10_bills = EbBill.last_10_bills
 		@eb = EbBill.find(params[:id])
 		render 'index'
 	end
@@ -57,6 +60,10 @@ class EbBillsController < ApplicationController
 			# show this error in the page itself
 			render text: "Not Found"
 		end
+	end
+	def export
+		export_date = params[:export_date].to_date
+		@records = EbBill.bills_at(export_date)
 	end
 	private
 		def eb_params

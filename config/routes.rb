@@ -3,6 +3,7 @@ Thamira::Application.routes.draw do
   devise_for :admin_users, ActiveAdmin::Devise.config
   resources :eb_bills, only: [:index, :create, :update, :edit] do
     get "search", on: :collection
+    get "export", on: :collection
   end
 
   ActiveAdmin.routes(self)
