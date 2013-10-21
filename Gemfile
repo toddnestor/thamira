@@ -4,6 +4,7 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 gem 'activeadmin', github: 'gregbell/active_admin', ref: 'af323887ca4be0d5f1da840af9437252360bf1e1'
 gem "bootstrap-sass", "~> 2.3.2.2"
+gem 'rails_12factor', group: :production
 # gem "bootstrap-datepicker-rails", "~> 1.1.1.8"
 gem "nokogiri", "~> 1.6.0"
 # Use postgresql as the database for Active Record
