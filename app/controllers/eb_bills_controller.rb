@@ -64,6 +64,10 @@ class EbBillsController < ApplicationController
 	def export
 		export_date = params[:export_date].to_date
 		@records = EbBill.bills_at(export_date)
+		
+		respond_to do |format|
+			format.xls
+		end
 	end
 	private
 		def eb_params

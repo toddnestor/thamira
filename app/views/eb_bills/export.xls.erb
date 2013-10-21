@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+xmlns:o="urn:schemas-microsoft-com:office:office"
+xmlns:x="urn:schemas-microsoft-com:office:excel"
+xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+xmlns:html="http://www.w3.org/TR/REC-html40">
+    <Worksheet ss:Name="Sheet1">
+        <Table>
+            <Row>
+                <Cell><Data ss:Type="String">Bill Number</Data></Cell>
+                <Cell><Data ss:Type="String">Amount</Data></Cell>
+                <Cell><Data ss:Type="String">Total</Data></Cell>
+            </Row>
+            <% @records.each do |bill| %>
+                <Row>
+                    <Cell><Data ss:Type="String"><%= bill.bill_number %></Data></Cell>
+                    <Cell><Data ss:Type="Number"><%= bill.amount %></Data></Cell>
+                    <Cell><Data ss:Type="Number"><%= bill.total %></Data></Cell>
+                </Row>
+            <% end %>
+            <Row></Row>
+            <Row>
+                <Cell></Cell>
+                <Cell><Data ss:Type="Number"><%= @records.collect(&:amount).inject(&:+) %></Data></Cell>
+                <Cell><Data ss:Type="Number"><%= @records.collect(&:total).inject(&:+) %></Data></Cell>
+            </Row>
+        </Table>
+    </Worksheet>
+</Workbook>

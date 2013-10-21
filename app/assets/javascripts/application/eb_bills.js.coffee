@@ -27,4 +27,3 @@ $ ->
 		if $('#date_picker').val() == ""
 			alert "Select a Date to Export Bills"
 			false
-
