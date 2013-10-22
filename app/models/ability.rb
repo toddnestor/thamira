@@ -11,7 +11,7 @@ class Ability
         can :read, ActiveAdmin::Page, name: "Dashboard"
     elsif user
         can [:index, :create, :search, :export], EbBill
-        can [:update, :edit], EbBill do |bill|
+        can [:update, :edit, :print], EbBill do |bill|
             bill.user == user
         end
     end

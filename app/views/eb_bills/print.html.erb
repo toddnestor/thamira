@@ -1,0 +1,19 @@
+<div class='hidden-print margin-bottom-20'>
+	<%= link_to "New Bill", eb_bills_path, class: 'btn btn-primary' %>
+</div>
+<div class='well'>
+	<div class='clearfix'>
+		<div class='pull-left'>Bill Number : <strong><%= @eb_bill.bill_number %></strong></div>
+		<div class='pull-right'>Date : <strong><%= @eb_bill.updated_at.to_date %></strong></div>
+	</div>
+	<div class='clearfix'>
+		<div class='pull-left'>Service Number : <strong><%= @eb_bill.service_number %></strong></div>
+		<div class='pull-right'>Service Name : <strong><%= @eb_bill.service_name + " - (#{@eb_bill.mobile_number})" %></strong></div>
+	</div>
+	<div class='clearfix text-center'>
+		<h3>Total : <%= @eb_bill.total %></h3>
+	</div>	
+</div>
+<script type="text/javascript">
+	window.print();
+</script>

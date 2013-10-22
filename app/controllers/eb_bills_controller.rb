@@ -1,5 +1,5 @@
 class EbBillsController < ApplicationController
-	load_and_authorize_resource only: [:edit, :update]
+	load_and_authorize_resource only: [:edit, :update, :print]
 	authorize_resource except: [:edit, :update]
 	def index
 		@eb = EbBill.new
@@ -12,7 +12,7 @@ class EbBillsController < ApplicationController
 		@eb.user = current_user
 		if @eb.save
 			flash[:notice] = "Bill Created Successfully-#{@eb.bill_number}, Total Amount:#{@eb.total}"
-			redirect_to eb_bills_path
+			redirect_to redirect_destination(@eb)
 		else
 			# show error message
 			render 'index'
@@ -22,12 +22,15 @@ class EbBillsController < ApplicationController
 		@eb = EbBill.find(params[:id])
 		if @eb.update_attributes(eb_update_params)
 			flash[:notice] = "Bill #{@eb.bill_number}, Updated Successfully"
-			redirect_to eb_bills_path
+			redirect_to redirect_destination(@eb)
 		else
 			# show error message for not update
 			flash[:alert] = "Not Updated, #{@eb.errors.full_messages.split(',')}"
 			redirect_to edit_eb_bill_path(@eb)
 		end
+	end
+	def print
+		
 	end
 	def edit
 		@today_bills = EbBill.today_bills(user: current_user)
@@ -60,5 +63,8 @@ class EbBillsController < ApplicationController
 		end
 		def eb_update_params
 			params.require(:eb_bill).permit(:service_name, :service_number, :mobile_number, :amount, :total)	
-		end		
+		end
+		def redirect_destination(bill)
+			params[:commit] == "Print & Save" ? print_eb_bill_path(bill) : eb_bills_path	
+		end	
 end

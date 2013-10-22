@@ -4,6 +4,7 @@ Thamira::Application.routes.draw do
   resources :eb_bills, only: [:index, :create, :update, :edit] do
     get "search", on: :collection
     get "export", on: :collection
+    get 'print', on: :member
   end
 
   ActiveAdmin.routes(self)
