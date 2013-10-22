@@ -1,30 +1,14 @@
 class EbBillsController < ApplicationController
+	authorize_resource
 	def index
 		@eb = EbBill.new
-		# @all_bills = EbBill.order("created_at DESC")
-		# tot_bill_count = 0
-		# tot_bill_amt = 0.0
-		# @all_bills.each do |bill|
-		# 	if bill.created_at.to_date == Date.today
-		# 		tot_bill_count = tot_bill_count + 1
-		# 		tot_bill_amt = tot_bill_amt + bill.total
-		# 	end
-		# end
-		@today_bills = EbBill.today_bills
+		@today_bills = EbBill.today_bills(user: current_user)
 		@today_bills_amount = @today_bills.sum(:total)
 		@last_10_bills = EbBill.last_10_bills
-		# @last_10_bills = nil
-		# count = 1
-		# @all_bills.each do |bill|
-		# 	@last_10_bills = bill + @last_10_bills
-		# 	count = count + 1
-		# 	if count == 10
-		# 		break
-		# 	end
-		# end
 	end
 	def create
 		@eb = EbBill.new(eb_params)
+		@eb.user = current_user
 		if @eb.save
 			flash[:notice] = "Bill Created Successfully-#{@eb.bill_number}, Total Amount:#{@eb.total}"
 			redirect_to eb_bills_path

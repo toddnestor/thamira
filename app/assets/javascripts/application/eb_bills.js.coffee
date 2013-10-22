@@ -1,4 +1,4 @@
-$ ->
+ready = ->
 	# Clear Fields
 	$('.clear_button').click ->
 		$('#eb_bill_service_name').val ''
@@ -27,3 +27,5 @@ $ ->
 		if $('#date_picker').val() == ""
 			alert "Select a Date to Export Bills"
 			false
+$(document).ready(ready)
+$(document).on("page:load", ready)

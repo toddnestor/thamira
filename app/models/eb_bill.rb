@@ -1,4 +1,5 @@
 class EbBill < ActiveRecord::Base
+	belongs_to :user
 	validates :service_name, :service_number, :mobile_number, :amount, :total, :bill_number, presence: true
 	validates :amount, :total, numericality: {greater_than: 0}
 	validates :bill_number, uniqueness: true
@@ -12,8 +13,13 @@ class EbBill < ActiveRecord::Base
 			bill_no = last_bill_number.next
 		end
 	end
-	def self.today_bills
-		where("DATE(created_at) = DATE(?)", Time.now).order("created_at desc")
+	def self.today_bills(options={})
+		user = options.delete(:user)
+		if user
+			where("DATE(created_at) = DATE(?) AND user_id = ?", Time.now, user.id).order("created_at desc")
+		else
+			where("DATE(created_at) = DATE(?)", Time.now).order("created_at desc")
+		end
 	end
 	def self.last_10_bills
 		order("created_at DESC").limit(10)
