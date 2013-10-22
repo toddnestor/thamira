@@ -8,7 +8,7 @@ class EbBill < ActiveRecord::Base
 		return super if self.persisted?
 		last_bill_number = EbBill.today_bills.first.try(:bill_number)
 		if last_bill_number.nil?
-			bill_no = "#{Date.today.strftime("%y%m%d")}-0001"
+			bill_no = "#{Time.zone.now.strftime("%y%m%d")}-0001"
 		else
 			bill_no = last_bill_number.next
 		end
@@ -16,9 +16,9 @@ class EbBill < ActiveRecord::Base
 	def self.today_bills(options={})
 		user = options.delete(:user)
 		if user
-			where("DATE(created_at) = DATE(?) AND user_id = ?", Time.now, user.id).order("created_at desc")
+			where("DATE(created_at) = DATE(?) AND user_id = ?", Time.zone.now, user.id).order("created_at desc")
 		else
-			where("DATE(created_at) = DATE(?)", Time.now).order("created_at desc")
+			where("DATE(created_at) = DATE(?)", Time.zone.now).order("created_at desc")
 		end
 	end
 	def self.last_10_bills(options={})

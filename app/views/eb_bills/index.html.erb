@@ -3,8 +3,8 @@
 		<div class="span10">
 			<div class="form-inline pull-left">
 				<label>BILL NO: <b><%= @eb.bill_number %></b></label>
-				<label>DATE: <b><%= Date.today.strftime("%A, %d %B") %></b></label>
-				<label>TIME: <b><%= Time.now.strftime("%I:%M %p") %></b></label>
+				<label>DATE: <b><%= Time.zone.now.strftime("%A, %d %B") %></b></label>
+				<label>TIME: <b><%= Time.zone.now.strftime("%I:%M %p") %></b></label>
 			</div>
 			<%= link_to "New Bill",eb_bills_path, class:"pull-right btn btn-primary" %>
 		</div>
@@ -60,7 +60,7 @@
 					<!-- <button type="submit" class="btn btn-primary margin-bottom-20">Print & Save</button> -->
 					<%= f.submit "Print & Save", class: "btn btn-primary margin-bottom-20", id: "print_save_button", 
 					data: {"disable-with" => "Processing.."} %>
-					<%= f.submit "Save", class: "btn btn-primary margin-bottom-20", id: "save_button", "disable-with" => "Processing.." %>
+					<%= f.submit "Save", class: "btn btn-primary margin-bottom-20", id: "save_button", data: {"disable-with" => "Processing.."} %>
 					<!-- <button type="submit" disabled class="btn btn-primary margin-bottom-20 disabled">Save</button> -->
 				</div>
 			<!-- </form> -->
