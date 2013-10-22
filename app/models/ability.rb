@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     if user and user.admin?
-        can :manage, User
+        can :manage, [User, EbBill]
         can [:read,:update, :create], AdminUser
         can :destroy, AdminUser do |u|
             u != user
