@@ -8,18 +8,27 @@ xmlns:html="http://www.w3.org/TR/REC-html40">
         <Table>
             <Row>
                 <Cell><Data ss:Type="String">Bill Number</Data></Cell>
+                <Cell><Data ss:Type="String">Service Name</Data></Cell>
+                <Cell><Data ss:Type="String">Service Number</Data></Cell>
+                <Cell><Data ss:Type="String">Mobile Number</Data></Cell>
                 <Cell><Data ss:Type="String">Amount</Data></Cell>
                 <Cell><Data ss:Type="String">Total</Data></Cell>
             </Row>
             <% @records.each do |bill| %>
                 <Row>
                     <Cell><Data ss:Type="String"><%= bill.bill_number %></Data></Cell>
+                    <Cell><Data ss:Type="String"><%= bill.service_name %></Data></Cell>
+                    <Cell><Data ss:Type="String"><%= bill.service_number %></Data></Cell>
+                    <Cell><Data ss:Type="String"><%= bill.mobile_number %></Data></Cell>
                     <Cell><Data ss:Type="Number"><%= bill.amount %></Data></Cell>
                     <Cell><Data ss:Type="Number"><%= bill.total %></Data></Cell>
                 </Row>
             <% end %>
             <Row></Row>
             <Row>
+                <Cell></Cell>
+                <Cell></Cell>
+                <Cell></Cell>
                 <Cell></Cell>
                 <Cell><Data ss:Type="Number"><%= @records.collect(&:amount).inject(&:+) %></Data></Cell>
                 <Cell><Data ss:Type="Number"><%= @records.collect(&:total).inject(&:+) %></Data></Cell>
