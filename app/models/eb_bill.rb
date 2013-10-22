@@ -1,9 +1,10 @@
 class EbBill < ActiveRecord::Base
 	belongs_to :user
-	validates :service_name, :service_number, :mobile_number, :amount, :total, :bill_number, presence: true
+	validates :service_name, :service_number, :mobile_number, :amount, :total, :bill_number, :user, presence: true
 	validates :amount, :total, numericality: {greater_than: 0}
 	validates :bill_number, uniqueness: true
-	before_create :set_bill_number
+	before_validation :set_bill_number, :set_total
+
 	def bill_number
 		return super if self.persisted?
 		last_bill_number = EbBill.today_bills.first.try(:bill_number)
@@ -37,8 +38,12 @@ class EbBill < ActiveRecord::Base
 			where("DATE(created_at) = DATE(?)", date).order("created_at asc")
 		end
 	end
+
 	private
-		def set_bill_number
-			self.bill_number = self.bill_number
-		end
+	def set_bill_number
+		self.bill_number = self.bill_number
+	end
+	def set_total
+		self.total = self.amount + ((self.amount > 200) ? 10 : 5)
+	end
 end

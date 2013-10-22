@@ -9,7 +9,7 @@ ready = ->
 		$('#eb_bill_number_text').val ''
 	$('#eb_bill_amount').keyup ->
 		amt = parseFloat($('#eb_bill_amount').val())
-		tot = if (amt != "" && !isNaN(amt) ) then amt + 5 else ''
+		tot = if (amt != "" && !isNaN(amt) ) then (if (amt > 200) then (amt + 10) else (amt + 5)) else ''
 		$('#eb_bill_total').val tot
 	# Date Picker
 	$('#date_picker').datepicker

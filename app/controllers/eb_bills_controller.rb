@@ -8,6 +8,9 @@ class EbBillsController < ApplicationController
 		@last_10_bills = EbBill.last_10_bills(user: current_user)
 	end
 	def create
+		@today_bills = EbBill.today_bills(user: current_user)
+		@today_bills_amount = @today_bills.sum(:total)
+		@last_10_bills = EbBill.last_10_bills(user: current_user)
 		@eb = EbBill.new(eb_params)
 		@eb.user = current_user
 		if @eb.save
@@ -59,10 +62,10 @@ class EbBillsController < ApplicationController
 	end
 	private
 		def eb_params
-			params.require(:eb_bill).permit(:service_name, :service_number, :mobile_number, :amount, :total, :bill_number)	
+			params.require(:eb_bill).permit(:service_name, :service_number, :mobile_number, :amount)
 		end
 		def eb_update_params
-			params.require(:eb_bill).permit(:service_name, :service_number, :mobile_number, :amount, :total)	
+			params.require(:eb_bill).permit(:service_name, :service_number, :mobile_number, :amount)	
 		end
 		def redirect_destination(bill)
 			params[:commit] == "Print & Save" ? print_eb_bill_path(bill) : eb_bills_path	
