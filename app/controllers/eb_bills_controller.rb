@@ -1,10 +1,11 @@
 class EbBillsController < ApplicationController
-	authorize_resource
+	load_and_authorize_resource only: [:edit, :update]
+	authorize_resource except: [:edit, :update]
 	def index
 		@eb = EbBill.new
 		@today_bills = EbBill.today_bills(user: current_user)
 		@today_bills_amount = @today_bills.sum(:total)
-		@last_10_bills = EbBill.last_10_bills
+		@last_10_bills = EbBill.last_10_bills(user: current_user)
 	end
 	def create
 		@eb = EbBill.new(eb_params)
@@ -29,9 +30,9 @@ class EbBillsController < ApplicationController
 		end
 	end
 	def edit
-		@today_bills = EbBill.today_bills
+		@today_bills = EbBill.today_bills(user: current_user)
 		@today_bills_amount = @today_bills.sum(:total)
-		@last_10_bills = EbBill.last_10_bills
+		@last_10_bills = EbBill.last_10_bills(user: current_user)
 		@eb = EbBill.find(params[:id])
 		render 'index'
 	end
@@ -47,7 +48,7 @@ class EbBillsController < ApplicationController
 	end
 	def export
 		export_date = params[:export_date].to_date
-		@records = EbBill.bills_at(export_date)
+		@records = EbBill.bills_at(export_date, user: current_user)
 		
 		respond_to do |format|
 			format.xls

@@ -7,16 +7,30 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-	<% if flash[:notice].present? %>
-		<div class="alert alert-success">
-			<%= flash[:notice] %>
+	<h1 style ="text-align: center;background-color: #ddd;margin: 0px;border: solid 1px #9C9B9B;color: #585858;line-height: 60px;">THAMIRA ENTERPRISE</h1>
+	<div class='container'>
+
+		<div class="page-header">
+			<h2 class="pull-left">Electricity Bill</h2>
+			<% if current_user %>
+				<div class="pull-right"><%= link_to  "Sign Out", destroy_user_session_path, method: :delete %></div>
+			<% end %>
+			<div class="clearfix"></div>
 		</div>
-	<% end %>
-	<% if flash[:alert].present? %>
-		<div class="alert alert-success">
-			<%= flash[:alert] %>
-		</div>
-	<% end %>	
-	<%= yield %>
+		<% if flash[:notice].present? %>
+			<div class="alert alert-success">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<%= flash[:notice] %>
+			</div>
+		<% end %>
+		<% if flash[:alert].present? %>
+			<div class="alert alert-danger">
+				<button type="button" class="close" data-dismiss="alert">&times;</button>
+				<%= flash[:alert] %>
+			</div>
+		<% end %>
+
+		<%= yield %>
+	</div>
 </body>
 </html>

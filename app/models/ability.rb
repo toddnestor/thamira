@@ -3,6 +3,11 @@ class Ability
 
   def initialize(user)
     if user and user.admin?
+        can :manage, User
+        can [:read,:update, :create], AdminUser
+        can :destroy, AdminUser do |u|
+            u != user
+        end
         can :read, ActiveAdmin::Page, name: "Dashboard"
     elsif user
         can [:index, :create, :search, :export], EbBill
