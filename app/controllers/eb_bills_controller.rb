@@ -4,21 +4,19 @@ class EbBillsController < ApplicationController
 	def index
 		@eb = EbBill.new
 		@today_bills = EbBill.today_bills(user: current_user)
-		@today_bills_amount = @today_bills.sum(:total)
+		@today_bills_amount = @today_bills.sum(:amount)
+		@today_bills_total_amount = @today_bills.sum(:total)
 		@last_10_bills = EbBill.last_10_bills(user: current_user)
 	end
 	def create
-		@today_bills = EbBill.today_bills(user: current_user)
-		@today_bills_amount = @today_bills.sum(:total)
-		@last_10_bills = EbBill.last_10_bills(user: current_user)
 		@eb = EbBill.new(eb_params)
 		@eb.user = current_user
 		if @eb.save
 			flash[:notice] = "Bill Created Successfully-#{@eb.bill_number}, Total Amount:#{@eb.total}"
 			redirect_to redirect_destination(@eb)
 		else
-			# show error message
-			render 'index'
+			flash[:alert] = "Not Created, #{@eb.errors.full_messages.split(',')}"
+			redirect_to eb_bills_path
 		end
 	end
 	def update
@@ -27,16 +25,17 @@ class EbBillsController < ApplicationController
 			flash[:notice] = "Bill #{@eb.bill_number}, Updated Successfully"
 			redirect_to redirect_destination(@eb)
 		else
-			# show error message for not update
 			flash[:alert] = "Not Updated, #{@eb.errors.full_messages.split(',')}"
 			redirect_to edit_eb_bill_path(@eb)
 		end
 	end
 	def print
+		render 'print', layout: false
 	end
 	def edit
 		@today_bills = EbBill.today_bills(user: current_user)
-		@today_bills_amount = @today_bills.sum(:total)
+		@today_bills_amount = @today_bills.sum(:amount)
+		@today_bills_total_amount = @today_bills.sum(:total)
 		@last_10_bills = EbBill.last_10_bills(user: current_user)
 		@eb = EbBill.find(params[:id])
 		render 'index'
@@ -47,8 +46,8 @@ class EbBillsController < ApplicationController
 		if @eb
 			redirect_to edit_eb_bill_path(@eb)
 		else
-			# show this error in the page itself
-			render text: "Not Found"
+			flash[:alert] = "Bill, #{search_text}, Does Not Exist!"
+			redirect_to eb_bills_path
 		end
 	end
 	def export
@@ -61,7 +60,7 @@ class EbBillsController < ApplicationController
 	end
 	private
 		def eb_params
-			params.require(:eb_bill).permit(:service_name, :service_number, :mobile_number, :amount)
+			params.require(:eb_bill).permit(:service_name, :service_number, :mobile_number, :amount, :emergency)
 		end
 		def redirect_destination(bill)
 			params[:commit] == "Print & Save" ? print_eb_bill_path(bill) : eb_bills_path	

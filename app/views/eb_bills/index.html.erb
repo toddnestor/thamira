@@ -55,6 +55,14 @@
 							<%= f.text_field :total, placeholder: "Final Amount Payable", disabled: true %>
 						</div>
 					</div>
+					<div class="control-group">
+						<div class="controls">
+							<label class="checkbox">
+								<%= f.check_box :emergency, type: "checkbox" %>
+								Emergency Bill?
+							</label>
+						</div>
+					</div>
 				</div>
 				<div class="span2 text-center no-left-margin">
 					<!-- <button type="submit" class="btn btn-primary margin-bottom-20">Print & Save</button> -->
@@ -113,11 +121,13 @@
 			<table class="table table-bordered table-condensed">
 				<tr>
 					<th>Total Bills</th>
+					<th>Total Amt</th>
 					<th>Total Bill Amt</th>
 				</tr>
 				<tr>
 					<td><%= @today_bills.length %></td>
 					<td><%= @today_bills_amount%></td>
+					<td><%= @today_bills_total_amount%></td>
 				</tr>	
 			</table>
 		</div>

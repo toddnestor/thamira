@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131010063354) do
+ActiveRecord::Schema.define(version: 20131023054858) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -41,6 +44,7 @@ ActiveRecord::Schema.define(version: 20131010063354) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "emergency"
   end
 
   add_index "eb_bills", ["bill_number"], name: "index_eb_bills_on_bill_number", unique: true, using: :btree

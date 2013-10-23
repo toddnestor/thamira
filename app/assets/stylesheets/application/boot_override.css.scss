@@ -13,6 +13,9 @@
 .inline-block{
 	display: inline-block;
 }
+.text-align-left{
+	text-align: left !important;
+}
 @media print {
 	.visible-print {display: inherit !important;}
 	.hidden-print {display: none !important;}
