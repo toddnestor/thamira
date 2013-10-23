@@ -23,7 +23,7 @@ class EbBillsController < ApplicationController
 	end
 	def update
 		@eb = EbBill.find(params[:id])
-		if @eb.update_attributes(eb_update_params)
+		if @eb.update_attributes(eb_params)
 			flash[:notice] = "Bill #{@eb.bill_number}, Updated Successfully"
 			redirect_to redirect_destination(@eb)
 		else
@@ -33,7 +33,6 @@ class EbBillsController < ApplicationController
 		end
 	end
 	def print
-		
 	end
 	def edit
 		@today_bills = EbBill.today_bills(user: current_user)
@@ -63,9 +62,6 @@ class EbBillsController < ApplicationController
 	private
 		def eb_params
 			params.require(:eb_bill).permit(:service_name, :service_number, :mobile_number, :amount)
-		end
-		def eb_update_params
-			params.require(:eb_bill).permit(:service_name, :service_number, :mobile_number, :amount)	
 		end
 		def redirect_destination(bill)
 			params[:commit] == "Print & Save" ? print_eb_bill_path(bill) : eb_bills_path	
