@@ -19,4 +19,18 @@
 @media print {
 	.visible-print {display: inherit !important;}
 	.hidden-print {display: none !important;}
+	body{
+		div{
+			font-size: 45px;
+			line-height: 80px;
+		}
+	}
+	h1.text-center{
+		font-size: 75px;
+		line-height: 80px;
+	}
+	h3.text-center{
+		font-size: 50px;
+		line-height: 80px;
+	}
 }
