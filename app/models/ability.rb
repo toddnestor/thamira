@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     if user and user.admin?
-        can :manage, [User, EbBill]
+        can :manage, [User, EbBill, CourierBill]
         can [:read,:update, :create], AdminUser
         can :destroy, AdminUser do |u|
             u != user
@@ -12,6 +12,10 @@ class Ability
     elsif user
         can [:index, :create, :search, :export], EbBill
         can [:update, :edit, :print], EbBill do |bill|
+            bill.user == user
+        end
+        can [:index, :create, :search, :export], CourierBill
+        can [:update, :edit, :print], CourierBill do |bill|
             bill.user == user
         end
     end

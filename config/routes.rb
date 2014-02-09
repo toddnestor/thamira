@@ -7,6 +7,12 @@ Thamira::Application.routes.draw do
     get 'print', on: :member
   end
 
+  resources :courier_bills, only: [:index, :create, :update, :edit] do
+    get "search", on: :collection
+    get "export", on: :collection
+    get 'print', on: :member
+  end
+
   ActiveAdmin.routes(self)
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

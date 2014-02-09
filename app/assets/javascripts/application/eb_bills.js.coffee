@@ -1,4 +1,4 @@
-ready = ->
+eb_ready = ->
 	# Clear Fields
 	$('.clear_button').click ->
 		$('#eb_bill_service_name').val ''
@@ -10,7 +10,7 @@ ready = ->
 	# Fill Total Amount
 	$('#eb_bill_amount').keyup ->
 		amt = parseFloat($('#eb_bill_amount').val())
-		tot = if (amt != "" && !isNaN(amt) ) then (if (amt > 200) then (amt + 10) else (amt + 5)) else ''
+		tot = if (amt != "" && !isNaN(amt) ) then (if (amt > 500) then (amt + 10) else (amt + 5)) else ''
 		$('#eb_bill_total').val tot
 	# Date Picker
 	$('#date_picker').datepicker
@@ -19,14 +19,14 @@ ready = ->
 	    autoclose: true
 	    todayHighlight: true
 	# Print And Save
-	$('print_save_button').click ->
-		if $('#bill_search').val() == ""
-			alert "Bill Number is Empty!"
-			false
+	# $('#print_save_button').click ->
+	# 	if $('#bill_search').val() == ""
+	# 		alert "Bill Number is Empty!"
+	# 		false
 	# Export Button on Empty Date
 	$('#export_button').click ->
 		if $('#date_picker').val() == ""
 			alert "Select a Date to Export Bills"
 			false
-$(document).ready(ready)
-$(document).on("page:load", ready)
+$(document).ready(eb_ready)
+$(document).on("page:load", eb_ready)

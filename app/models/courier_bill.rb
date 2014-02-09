@@ -1,13 +1,13 @@
-class EbBill < ActiveRecord::Base
+class CourierBill < ActiveRecord::Base
 	belongs_to :user
-	validates :service_name, :service_number, :mobile_number, :amount, :total, :bill_number, :user, presence: true
-	validates :amount, :total, numericality: {greater_than: 0}
+	validates :sender, :sender_mobile_no, :receiver, :receiver_mobile_no, :amount, :total, :bill_number, :user, presence: true
+	validates :amount, numericality: {greater_than: 0}
 	validates :bill_number, uniqueness: true
 	before_validation :set_bill_number, :set_total
 
 	def bill_number
 		return super if self.persisted?
-		last_bill_number = EbBill.today_bills.first.try(:bill_number)
+		last_bill_number = CourierBill.today_bills.first.try(:bill_number)
 		if last_bill_number.nil?
 			bill_no = "#{Time.zone.now.strftime("%y%m%d")}-0001"
 		else
@@ -44,6 +44,6 @@ class EbBill < ActiveRecord::Base
 		self.bill_number = self.bill_number
 	end
 	def set_total
-		self.total = self.amount + ((self.amount > 500) ? 10 : 5)
+		self.total = self.amount
 	end
 end

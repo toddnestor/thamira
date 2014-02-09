@@ -4,7 +4,7 @@ class EbBillsController < ApplicationController
 	def index
 		@eb = EbBill.new
 		@today_bills = EbBill.today_bills(user: current_user)
-		@today_bills_amount = @today_bills.sum(:amount)
+		# @today_bills_amount = @today_bills.sum(:amount)
 		@today_bills_total_amount = @today_bills.sum(:total)
 		@last_10_bills = EbBill.last_10_bills(user: current_user)
 	end
