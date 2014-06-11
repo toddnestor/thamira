@@ -9,7 +9,14 @@ gem "cancan", "~> 1.6.10"
 # gem "bootstrap-datepicker-rails", "~> 1.1.1.8"
 gem "nokogiri", "~> 1.6.0"
 # Use postgresql as the database for Active Record
-gem 'pg'
+
+group :development, :test do
+    gem 'sqlite3'
+end
+
+group :production do
+    gem 'pg'
+end
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
