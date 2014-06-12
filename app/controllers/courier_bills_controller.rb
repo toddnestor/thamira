@@ -1,10 +1,11 @@
 class CourierBillsController < ApplicationController
+	around_filter :catch_not_found
 	load_and_authorize_resource only: [:edit, :update, :print]
 	authorize_resource except: [:edit, :update]
 	def index
 		@courier = CourierBill.new
 		@today_bills = CourierBill.today_bills(user: current_user)
-		# @today_bills_amount = @today_bills.sum(:amount)
+		@today_bills_amount = @today_bills.sum(:amount)
 		@today_bills_total_amount = @today_bills.sum(:total)
 		@last_10_bills = CourierBill.last_10_bills(user: current_user)
 	end
@@ -64,4 +65,10 @@ class CourierBillsController < ApplicationController
 		def redirect_destination(bill)
 			params[:commit] == "Print & Save" ? print_courier_bill_path(bill) : courier_bills_path	
 		end	
+
+		def catch_not_found
+		  yield
+		rescue ActiveRecord::RecordNotFound
+		  redirect_to courier_bills_path, :flash => { :error => "Record not found." }
+		end
 end

@@ -11,7 +11,7 @@ courier_ready = ->
 	# Fill Total Amount
 	$('#courier_bill_amount').keyup ->
 		amt = parseFloat($('#courier_bill_amount').val())
-		tot = if (amt != "" && !isNaN(amt) ) then (amt) else ''
+		tot = if (amt != "" && !isNaN(amt) ) then (if (amt >= 100) then (amt + 8) else (amt + 4)) else ''
 		$('#courier_bill_total').val tot
 $(document).ready(courier_ready)
 $(document).on("page:load", courier_ready)

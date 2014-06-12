@@ -1,10 +1,12 @@
 class EbBillsController < ApplicationController
+	around_filter :catch_not_found
 	load_and_authorize_resource only: [:edit, :update, :print]
 	authorize_resource except: [:edit, :update]
+
 	def index
 		@eb = EbBill.new
 		@today_bills = EbBill.today_bills(user: current_user)
-		# @today_bills_amount = @today_bills.sum(:amount)
+		@today_bills_amount = @today_bills.sum(:amount)
 		@today_bills_total_amount = @today_bills.sum(:total)
 		@last_10_bills = EbBill.last_10_bills(user: current_user)
 	end
@@ -33,6 +35,7 @@ class EbBillsController < ApplicationController
 		render 'print', layout: false
 	end
 	def edit
+		@eb = EbBill.find(params[:id])
 		@today_bills = EbBill.today_bills(user: current_user)
 		@today_bills_amount = @today_bills.sum(:amount)
 		@today_bills_total_amount = @today_bills.sum(:total)
@@ -65,4 +68,10 @@ class EbBillsController < ApplicationController
 		def redirect_destination(bill)
 			params[:commit] == "Print & Save" ? print_eb_bill_path(bill) : eb_bills_path	
 		end	
+
+		def catch_not_found
+		  yield
+		rescue ActiveRecord::RecordNotFound
+		  redirect_to eb_bills_path, :flash => { :error => "Record not found." }
+		end
 end

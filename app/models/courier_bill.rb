@@ -44,6 +44,6 @@ class CourierBill < ActiveRecord::Base
 		self.bill_number = self.bill_number
 	end
 	def set_total
-		self.total = self.amount
+		self.total = self.amount + ((self.amount >= 100) ? 8 : 4) if self.amount
 	end
 end
