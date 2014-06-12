@@ -13,7 +13,7 @@
 					<%= link_to "New Bill", billing_bills_path, class: 'btn btn-primary' %>
 				</div>
 				<h3 class="text-center">C-RECEIPT FOR BILLING</h3>
-				<% {"Date" => @billing_bill.updated_at.to_date, "Bill Number" => @billing_bill.bill_number, "Mobile Number" => @billing_bill.mobile_number, "Service Name" => @billing_bill.service_name, "Total" => @billing_bill.total}.each do |k,v| %>
+				<% {"Date" => @billing_bill.updated_at.to_date, "Bill Number" => @billing_bill.bill_number, "Mobile Number" => @billing_bill.mobile_number, "Service Name" => @billing_bill.service_name, "Amount Paid" => @billing_bill.amount_paid, "Total" => @billing_bill.total}.each do |k,v| %>
 					<div class='span12'>
 							<div class='span6'><%= k %></div>
 							<div class='span5'><strong><%= v %></strong></div>

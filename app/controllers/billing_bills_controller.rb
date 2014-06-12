@@ -63,7 +63,7 @@ class BillingBillsController < ApplicationController
 	end
 	private
 		def cb_params
-			params.require(:billing_bill).permit(:customer_name, :service_name, :mobile_number, :amount, :user_id, :user, :id, :commit)
+			params.require(:billing_bill).permit(:customer_name, :service_name, :amount_paid, :mobile_number, :amount, :user_id, :user, :id, :commit)
 		end
 		def redirect_destination(bill)
 			params[:commit] == "Print & Save" ? print_billing_bill_path(bill) : billing_bills_path	

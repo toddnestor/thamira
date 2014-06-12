@@ -10,7 +10,7 @@ class EnquiriesController < ApplicationController
 	end
 	def create
 		@cb = Enquiry.new(cb_params)
-		@cb.user = current_user
+		@cb.user ||= current_user
 		if @cb.save
 			flash[:notice] = "Enquiry Created Successfully-#{@cb.bill_number}"
 			redirect_to redirect_destination(@cb)
@@ -59,7 +59,7 @@ class EnquiriesController < ApplicationController
 	end
 	private
 		def cb_params
-			params.require(:enquiry).permit(:customer_name, :service_name, :mobile_number)
+			params.require(:enquiry).permit(:customer_name, :service_name, :mobile_number, :user_id, :user)
 		end
 		def redirect_destination(bill)
 			params[:commit] == "Print & Save" ? print_enquiry_path(bill) : enquiries_path	

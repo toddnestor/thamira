@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140612083808) do
+ActiveRecord::Schema.define(version: 20140612093808) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20140612083808) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.decimal  "amount_paid"
   end
 
   add_index "billing_bills", ["bill_number"], name: "index_billing_bills_on_bill_number", unique: true

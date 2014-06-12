@@ -12,7 +12,7 @@ class EbBillsController < ApplicationController
 	end
 	def create
 		@eb = EbBill.new(eb_params)
-		@eb.user = current_user
+		@eb.user ||= current_user
 		if @eb.save
 			flash[:notice] = "Bill Created Successfully-#{@eb.bill_number}, Total Amount:#{@eb.total}"
 			redirect_to redirect_destination(@eb)
@@ -63,7 +63,7 @@ class EbBillsController < ApplicationController
 	end
 	private
 		def eb_params
-			params.require(:eb_bill).permit(:service_name, :service_number, :mobile_number, :amount, :emergency)
+			params.require(:eb_bill).permit(:service_name, :service_number, :mobile_number, :amount, :emergency, :user_id, :user)
 		end
 		def redirect_destination(bill)
 			params[:commit] == "Print & Save" ? print_eb_bill_path(bill) : eb_bills_path	

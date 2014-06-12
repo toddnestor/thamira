@@ -3,7 +3,7 @@ ActiveAdmin.register ClothsBill do
 	filter :created_at
 
 form do |f|
-    f.inputs "Clothes Bill" do
+    f.inputs "Dress" do
       f.input :user_id, as: :select, collection: User.all
       f.input :customer_name
       f.input :service_name, as: :select, collection: ["SHIRT","PANTS","OTHERS"]
@@ -15,8 +15,8 @@ form do |f|
   end
 	controller do
 	    def permitted_params
-	      params.permit :utf8, :_method, :authenticity_token, :commit, :id, :user_id,
-	      				billing_bill: [:id, :model, :customer_name, :service_name, :mobile_number, :amount, :user_id]
+	      params.permit :utf8, :_method, :authenticity_token, :commit, :id, :user_id, :cloths_bill,
+	      				cloths_bill: [:id, :model, :customer_name, :service_name, :mobile_number, :amount, :user_id]
 	    end
 	end
 end

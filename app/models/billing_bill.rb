@@ -9,7 +9,7 @@ class BillingBill < ActiveRecord::Base
 		return super if self.persisted?
 		last_bill_number = BillingBill.today_bills.first.try(:bill_number)
 		if last_bill_number.nil?
-			bill_no = "#{Time.zone.now.strftime("%y%m%d")}-0001"
+			bill_no = "B" + "#{Time.zone.now.strftime("%y%m%d")}-0001"
 		else
 			bill_no = last_bill_number.next
 		end

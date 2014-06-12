@@ -12,7 +12,7 @@ class TicketBillsController < ApplicationController
 	end
 	def create
 		@cb = TicketBill.new(cb_params)
-		@cb.user = current_user
+		@cb.user ||= current_user
 		if @cb.save
 			flash[:notice] = "Bill Created Successfully-#{@cb.bill_number}, Total Amount:#{@cb.total}"
 			redirect_to redirect_destination(@cb)
@@ -63,7 +63,7 @@ class TicketBillsController < ApplicationController
 	end
 	private
 		def cb_params
-			params.require(:ticket_bill).permit(:customer_name, :service_name, :ticket_number, :mobile_number, :amount)
+			params.require(:ticket_bill).permit(:customer_name, :service_name, :ticket_number, :mobile_number, :amount, :user_id, :user)
 		end
 		def redirect_destination(bill)
 			params[:commit] == "Print & Save" ? print_ticket_bill_path(bill) : ticket_bills_path	

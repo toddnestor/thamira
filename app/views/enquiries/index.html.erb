@@ -1,12 +1,12 @@
 <% content_for(:page_title) do %>
   Enquiry
+  <small><%= link_to "Electricity", eb_bills_path %> | </small>
   <small><%= link_to "Billing", billing_bills_path %> | </small>
-  <small><%= link_to "Clothes Bill", cloths_bills_path %> | </small>
-  <small><%= link_to "Courier Bill", courier_bills_path %> | </small>
-  <small><%= link_to "EB Bill", eb_bills_path %> | </small>
+  <small><%= link_to "Courier", courier_bills_path %> | </small>
+  <small><%= link_to "Dress", cloths_bills_path %> | </small>
   <small><%= link_to "Payments", payments_bills_path %> | </small>
-  <small><%= link_to "Service Bill", service_bills_path %> | </small>
-  <small><%= link_to "Ticket Bill", ticket_bills_path %></small>
+  <small><%= link_to "Service", service_bills_path %> | </small>
+  <small><%= link_to "Ticket", ticket_bills_path %></small>
 <% end %>
 <div class="container">
   <div class="row well">
@@ -39,7 +39,7 @@
             <%= f.label :service_name, "SERVICE NAME", class: "control-label" %>
             <div class="controls">
               <!-- <input type="text" placeholder="Enter Service Number"> -->
-              <%= f.select :service_name, options_for_select(["ADVERTISEMENT","CONSULTANCY","COMPUTERS","FOOD","OTHERS","MATRIMONY","SOFTWARES","TOURS","TICKETS","VEHICLE RENTAL"], :selected => @cb.service_name) %>
+              <%= f.select :service_name, options_for_select(["ADVERTISEMENT","CONSULTANCY","COMPUTERS","DRESS","FOOD","OTHERS","MATRIMONY","SOFTWARES","TOURS","TICKETS","VEHICLE RENTAL"], :selected => @cb.service_name) %>
             </div>
           </div>
 
@@ -107,12 +107,10 @@
       <table class="table table-bordered table-condensed">
         <tr>
           <th>Total Enquiries</th>
-          <th>Total Amt</th>
           <th>Total Bill Amt</th>
         </tr>
         <tr>
           <td><%= @today_bills.length %></td>
-          <td> - </td>
           <td> - </td>
         </tr> 
       </table>

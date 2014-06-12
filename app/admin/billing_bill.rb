@@ -3,12 +3,14 @@ ActiveAdmin.register BillingBill do
 	filter :created_at
 
 form do |f|
-    f.inputs "Billing" do
+    f.inputs "Billing Bill" do
       f.input :user_id, as: :select, collection: User.all
       f.input :customer_name
-      f.input :service_name, as: :select, collection: ["ADVERTISEMENT","CONSULTANCY","COMPUTERS","FOOD","OTHERS","MATRIMONY","SOFTWARES","TOURS","TICKETS","VEHICLE RENTAL"]
+      f.input :service_name, as: :select, collection: ["ADVERTISEMENT","CONSULTANCY","COMPUTERS","DRESS","FOOD","OTHERS","MATRIMONY","SOFTWARES","TOURS","TICKETS","VEHICLE RENTAL"]
       f.input :mobile_number
       f.input :amount
+      f.input :amount_paid
+
     end
     f.actions
   end

@@ -9,7 +9,7 @@ class EbBill < ActiveRecord::Base
 		return super if self.persisted?
 		last_bill_number = EbBill.today_bills.first.try(:bill_number)
 		if last_bill_number.nil?
-			bill_no = "#{Time.zone.now.strftime("%y%m%d")}-0001"
+			bill_no = "A" + "#{Time.zone.now.strftime("%y%m%d")}-0001"
 		else
 			bill_no = last_bill_number.next
 		end
@@ -44,6 +44,6 @@ class EbBill < ActiveRecord::Base
 		self.bill_number = self.bill_number
 	end
 	def set_total
-		self.total = self.amount + ((self.amount >= 100) ? 10 : 5) if self.amount
+		self.total = self.amount + ((self.amount > 100) ? 10 : 5) if self.amount
 	end
 end

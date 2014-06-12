@@ -12,7 +12,7 @@ class PaymentsBillsController < ApplicationController
 	end
 	def create
 		@pb = PaymentsBill.new(pb_params)
-		@pb.user = current_user
+		@pb.user ||= current_user
 		if @pb.save
 			flash[:notice] = "Bill Created Successfully-#{@pb.bill_number}, Total Amount:#{@pb.total}"
 			redirect_to redirect_destination(@pb)
@@ -63,7 +63,7 @@ class PaymentsBillsController < ApplicationController
 	end
 	private
 		def pb_params
-			params.require(:payments_bill).permit(:customer_name, :service_name, :network, :mobile_number, :amount)
+			params.require(:payments_bill).permit(:customer_name, :service_name, :network, :mobile_number, :amount, :user_id, :user)
 		end
 		def redirect_destination(bill)
 			params[:commit] == "Print & Save" ? print_payments_bill_path(bill) : payments_bills_path	

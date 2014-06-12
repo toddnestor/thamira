@@ -63,7 +63,7 @@ class ClothsBillsController < ApplicationController
 	end
 	private
 		def cb_params
-			params.require(:cloths_bill).permit(:customer_name, :service_name, :model, :mobile_number, :amount)
+			params.require(:cloths_bill).permit(:customer_name, :service_name, :model, :mobile_number, :amount, :user, :user_id, :id, :commit)
 		end
 		def redirect_destination(bill)
 			params[:commit] == "Print & Save" ? print_cloths_bill_path(bill) : cloths_bills_path	
