@@ -6,16 +6,16 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-DEFAULT_INSECURE_PASSWORD = 'hotties2'
+DEFAULT_INSECURE_PASSWORD = 'abc123def456'
 
 User.create({
-  email: "todd.nestor@gmail.com",
+  email: "demo@thamira.in",
   password: DEFAULT_INSECURE_PASSWORD,
   password_confirmation: DEFAULT_INSECURE_PASSWORD,
 })
 
 AdminUser.create({
-  email: "todd_nestor@hotmail.com",
+  email: "admindemo@thamira.in",
   password: DEFAULT_INSECURE_PASSWORD,
   password_confirmation: DEFAULT_INSECURE_PASSWORD,
 })
