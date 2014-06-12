@@ -7,15 +7,17 @@ xmlns:html="http://www.w3.org/TR/REC-html40">
     <Worksheet ss:Name="Sheet1">
         <Table>
             <Row>
+                <Cell><Data ss:Type="String">Customer Name</Data></Cell>
                 <Cell><Data ss:Type="String">Service Name</Data></Cell>
-                <Cell><Data ss:Type="String" ss:Bold='1'>Mobile Number</Data></Cell>
+                <Cell><Data ss:Type="String" ss:Bold='1'>Network</Data></Cell>
                 <Cell><Data ss:Type="String" ss:Bold='1'>Amount</Data></Cell>
             </Row>
             <Row></Row>
             <% @records.each do |bill| %>
                 <Row>
+                    <Cell><Data ss:Type="String"><%= bill.customer_name %></Data></Cell>
                     <Cell><Data ss:Type="String"><%= bill.service_name %></Data></Cell>
-                    <Cell><Data ss:Type="String"><%= bill.mobile_number %></Data></Cell>
+                    <Cell><Data ss:Type="String"><%= bill.network %></Data></Cell>
                     <Cell><Data ss:Type="Number"><%= bill.amount %></Data></Cell>
                 </Row>
             <% end %>
