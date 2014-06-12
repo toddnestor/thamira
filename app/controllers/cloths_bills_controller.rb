@@ -12,7 +12,7 @@ class ClothsBillsController < ApplicationController
 	end
 	def create
 		@cb = ClothsBill.new(cb_params)
-		@cb.user = current_user
+		@cb.user ||= current_user
 		if @cb.save
 			flash[:notice] = "Bill Created Successfully-#{@cb.bill_number}, Total Amount:#{@cb.total}"
 			redirect_to redirect_destination(@cb)

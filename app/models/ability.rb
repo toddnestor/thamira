@@ -2,8 +2,8 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    if user and user.admin?
-        can :manage, [User, EbBill, CourierBill, PaymentsBill]
+    if user.admin?
+        can :manage, [User, EbBill, CourierBill, PaymentsBill, BillingBill, ClothsBill, Enquiry, ServiceBill, TicketBill]
         can [:read,:update, :create], AdminUser
         can :destroy, AdminUser do |u|
             u != user

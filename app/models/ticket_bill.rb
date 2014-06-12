@@ -1,7 +1,7 @@
 class TicketBill < ActiveRecord::Base
 	belongs_to :user
 	validates :service_name, :customer_name, :mobile_number, :ticket_number, :amount, :total, :bill_number, :user, presence: true
-	validates :amount, :total, numericality: {greater_than: 0}
+	validates :amount, :total, numericality: {greater_than_or_equal_to: 1}
 	validates :bill_number, uniqueness: true
 	before_validation :set_bill_number, :set_total
 

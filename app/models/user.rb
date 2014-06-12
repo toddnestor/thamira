@@ -10,6 +10,10 @@ class User < ActiveRecord::Base
   has_many :courier_bills
   has_many :enquiries
 
+  def to_s
+    email
+  end
+
   def admin?
   	false
   end

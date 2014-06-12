@@ -140,7 +140,9 @@ ActiveAdmin.setup do |config|
   # Active Admin resources and pages from here.
   #
   # config.before_filter :skip_authorization_check
-  
+  config.before_filter do
+    params.permit!
+  end
   
   # == Setting a Favicon
   #
@@ -232,4 +234,18 @@ ActiveAdmin.setup do |config|
   #
   # config.filters = true
 
+  module ActiveAdmin
+    class ResourceDSL < DSL
+      def permit_params(*args, &block)
+        resource_sym = config.resource_name.singular.to_sym
+        controller do
+          define_method :permitted_params do
+            params.permit :utf8, :authenticity_token, :commit,
+                          resource_sym =>
+                          block ? instance_exec(&block) : args
+          end
+        end
+      end
+    end
+  end
 end

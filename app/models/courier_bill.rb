@@ -1,7 +1,7 @@
 class CourierBill < ActiveRecord::Base
 	belongs_to :user
 	validates :sender, :sender_mobile_no, :receiver, :receiver_mobile_no, :amount, :total, :bill_number, :user, presence: true
-	validates :amount, numericality: {greater_than: 0}
+	validates :amount, numericality: {greater_than_or_equal_to: 1}
 	validates :bill_number, uniqueness: true
 	before_validation :set_bill_number, :set_total
 
