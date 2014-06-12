@@ -1,0 +1,2 @@
+module ClothsBillsHelper
+end

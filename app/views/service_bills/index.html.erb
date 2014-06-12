@@ -1,0 +1,136 @@
+<% content_for(:page_title) do %>
+  Service Bill
+  <small><%= link_to "Courier Bill", courier_bills_path %> | </small>
+  <small><%= link_to "EB Bill", eb_bills_path %> | </small>
+  <small><%= link_to "Clothes Bill", service_bills_path %> | </small>
+  <small><%= link_to "Payments", payments_bills_path %></small>
+<% end %>
+<div class="container">
+  <div class="row well">
+    <div class="span10">
+      <div class="form-inline pull-left">
+        <label>BILL NO: <b><%= @cb.bill_number %></b></label>
+        <label>DATE: <b><%= Time.zone.now.strftime("%A, %d %B") %></b></label>
+        <label>TIME: <b><%= Time.zone.now.strftime("%I:%M %p") %></b></label>
+      </div>
+      <%= link_to "New Bill", service_bills_path, class:"pull-right btn btn-primary" %>
+    </div>
+  </div>
+
+  <div class='row'>
+    <div class='span8'>
+      <!-- <form class="form-horizontal"> -->
+      <%= form_for @cb, html: {class: "form-horizontal"} do |f| %>
+        <div class="span6 no-left-margin">
+          <div class="control-group">
+            <!-- <label class="control-label">SERVICE NAME</label> -->
+            <%= f.label :customer_name, "CUSTOMER NAME", class: "control-label" %>
+            <div class="controls">
+              <!-- <input type="text" placeholder="Enter Name"> -->
+              <%= f.text_field :customer_name, placeholder: "Enter Name" %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <!-- <label class="control-label">SERVICE NUMBER</label> -->
+            <%= f.label :service_name, "SERVICE NAME", class: "control-label" %>
+            <div class="controls">
+              <!-- <input type="text" placeholder="Enter Service Number"> -->
+              <%= f.select :service_name, options_for_select(["PAN CARD","PASSPORT","EXAM APPLICATIONS", "EPFO", "VEHICLE TAX PAYMENT"]) %>
+            </div>
+          </div>
+
+          <div class="control-group">
+            <!-- <label class="control-label">MOBILE NUMBER</label> -->
+            <%= f.label :mobile_number, "MOBILE NUMBER", class: "control-label" %>
+            <div class="controls">
+              <!-- <input type="text" placeholder="Enter Mob. Number"> -->
+              <%= f.text_field :mobile_number, placeholder: "Enter Mob. Number" %>
+            </div>
+          </div>
+          <div class="control-group">
+            <!-- <label class="control-label">AMOUNT</label> -->
+            <%= f.label :amount, "AMOUNT", class: "control-label" %>
+            <div class="controls">
+              <!-- <input type="text" placeholder="Enter Amount"> -->
+              <%= f.text_field :amount, placeholder: "Enter Amount" %>
+            </div>
+          </div>
+          <div class="control-group">
+            <!-- <label class="control-label">TOTAL</label> -->
+            <%= f.label :total, "TOTAL", class: "control-label" %>
+            <div class="controls">
+              <!-- <input type="text" disabled placeholder="Final Amount Payable"> -->
+              <%= f.text_field :total, placeholder: "Final Amount Payable", disabled: true %>
+            </div>
+          </div>
+        </div>
+        <div class="span2 text-center no-left-margin">
+          <!-- <button type="submit" class="btn btn-primary margin-bottom-20">Print & Save</button> -->
+          <%= f.submit "Print & Save", class: "btn btn-primary margin-bottom-20", id: "print_save_button", 
+          data: {"disable-with" => "Processing.."} %>
+          <%= f.submit "Save", class: "btn btn-primary margin-bottom-20", id: "save_button", data: {"disable-with" => "Processing.."} %>
+          <!-- <button type="submit" disabled class="btn btn-primary margin-bottom-20 disabled">Save</button> -->
+        </div>
+      <!-- </form> -->
+      <% end %>
+      <div class='span2 text-center no-left-margin'>
+        <!-- <button type="button" class="btn margin-bottom-20">Clear</button> -->
+        <%= button_tag 'Clear!', class: "btn margin-bottom-20 clear_button" %>
+        <!-- <form class="well well-small"> -->
+        <%= form_tag search_service_bills_path, method: :get, class: "well well-small" do %>
+          <div class='margin-bottom-20'>
+            <!-- <label class="inline-block", style="font-size:10px">Bill NO</label> -->
+            <!-- <input type="text" class='span1 no-bottom-margin' placeholder="Bill No" id="eb_bill_number_text"> -->
+            <%= text_field_tag 'search', params[:search], placeholder: "Bill No", class: "no-bottom-margin", id: "bill_search", style:"width:80%;font-size:12px" %>
+          </div>
+          <!-- <button type="button" class="btn btn-primary">Search</button> -->
+          <%= submit_tag "Search", class: "btn btn-primary search_button" %>
+        <!-- </form> -->
+        <% end %>
+      </div>
+    </div>
+    <div class="bills span4">
+      <span class="label label-info margin-bottom-10">Last 10 Bills</span>
+      <table class="table table-bordered table-condensed">
+        <tr>
+          <th>Bill No.</th>
+          <th>Mobile No.</th>
+          <th>Total Amt</th>
+        </tr>
+        <% @last_10_bills.each do |bill|%>
+          <tr>
+            <td><%= link_to bill.bill_number, edit_service_bill_path(bill) %></td>
+            <td><%= bill.mobile_number %></td>
+            <td><%= bill.total %></td>
+          </tr>
+        <% end %>
+      </table>
+    </div>
+  </div>
+
+  <div class="row">
+    <form class="export span8" method="get" action="<%= export_eb_bills_path(format: 'xls')%>">
+      <span class="label label-info">Export Data</span>
+      <div>
+        <input type="text" style="margin-top:10px" id="date_picker" placeholder="Select Date" name="export_date">
+        <button type="submit" class="btn btn-primary" id="export_button">Export</button>
+      </div>
+    </form>
+    <div class="report span4 well well-small no-left-margin">
+      <span class="label label-info margin-bottom-10">Todays Report</span>
+      <table class="table table-bordered table-condensed">
+        <tr>
+          <th>Total Bills</th>
+          <th>Total Amt</th>
+          <th>Total Bill Amt</th>
+        </tr>
+        <tr>
+          <td><%= @today_bills.length %></td>
+          <td><%= @today_bills_total_amount - @today_bills_amount %></td>
+          <td><%= @today_bills_total_amount %></td>
+        </tr> 
+      </table>
+    </div>
+  </div>
+</div>

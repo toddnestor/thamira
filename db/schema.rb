@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140209143239) do
+ActiveRecord::Schema.define(version: 20140612051839) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -28,8 +28,23 @@ ActiveRecord::Schema.define(version: 20140209143239) do
     t.datetime "updated_at"
   end
 
-  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true, using: :btree
-  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true, using: :btree
+  add_index "admin_users", ["email"], name: "index_admin_users_on_email", unique: true
+  add_index "admin_users", ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
+
+  create_table "cloths_bills", force: true do |t|
+    t.string   "customer_name"
+    t.string   "service_name"
+    t.string   "model"
+    t.string   "mobile_number"
+    t.decimal  "amount"
+    t.decimal  "total"
+    t.string   "bill_number"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "cloths_bills", ["user_id"], name: "index_cloths_bills_on_user_id"
 
   create_table "courier_bills", force: true do |t|
     t.string   "sender"
@@ -44,7 +59,7 @@ ActiveRecord::Schema.define(version: 20140209143239) do
     t.datetime "updated_at"
   end
 
-  add_index "courier_bills", ["bill_number"], name: "index_courier_bills_on_bill_number", unique: true, using: :btree
+  add_index "courier_bills", ["bill_number"], name: "index_courier_bills_on_bill_number", unique: true
 
   create_table "eb_bills", force: true do |t|
     t.string   "service_name"
@@ -59,7 +74,38 @@ ActiveRecord::Schema.define(version: 20140209143239) do
     t.boolean  "emergency"
   end
 
-  add_index "eb_bills", ["bill_number"], name: "index_eb_bills_on_bill_number", unique: true, using: :btree
+  add_index "eb_bills", ["bill_number"], name: "index_eb_bills_on_bill_number", unique: true
+
+  create_table "payments_bills", force: true do |t|
+    t.string   "customer_name"
+    t.string   "service_name"
+    t.string   "network"
+    t.string   "mobile_number"
+    t.decimal  "amount"
+    t.decimal  "total"
+    t.string   "bill_number"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "payments_bills", ["bill_number"], name: "index_payments_bills_on_bill_number", unique: true
+  add_index "payments_bills", ["user_id"], name: "index_payments_bills_on_user_id"
+
+  create_table "service_bills", force: true do |t|
+    t.string   "customer_name"
+    t.string   "service_name"
+    t.string   "mobile_number"
+    t.decimal  "amount"
+    t.decimal  "total"
+    t.string   "bill_number"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "service_bills", ["bill_number"], name: "index_service_bills_on_bill_number", unique: true
+  add_index "service_bills", ["user_id"], name: "index_service_bills_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -76,7 +122,7 @@ ActiveRecord::Schema.define(version: 20140209143239) do
     t.datetime "updated_at"
   end
 
-  add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
-  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
+  add_index "users", ["email"], name: "index_users_on_email", unique: true
+  add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
 
 end

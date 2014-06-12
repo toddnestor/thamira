@@ -1,4 +1,5 @@
 Thamira::Application.routes.draw do
+
   devise_for :users
   devise_for :admin_users, ActiveAdmin::Devise.config
   resources :eb_bills, only: [:index, :create, :update, :edit] do
@@ -8,6 +9,24 @@ Thamira::Application.routes.draw do
   end
 
   resources :courier_bills, only: [:index, :create, :update, :edit] do
+    get "search", on: :collection
+    get "export", on: :collection
+    get 'print', on: :member
+  end
+
+  resources :payments_bills, only: [:index, :create, :update, :edit] do
+    get "search", on: :collection
+    get "export", on: :collection
+    get 'print', on: :member
+  end
+
+  resources :cloths_bills, only: [:index, :create, :update, :edit] do
+    get "search", on: :collection
+    get "export", on: :collection
+    get 'print', on: :member
+  end
+
+  resources :service_bills, only: [:index, :create, :update, :edit] do
     get "search", on: :collection
     get "export", on: :collection
     get 'print', on: :member

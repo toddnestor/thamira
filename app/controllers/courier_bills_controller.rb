@@ -37,6 +37,7 @@ class CourierBillsController < ApplicationController
 		@today_bills = CourierBill.today_bills(user: current_user)
 		@today_bills_amount = @today_bills.sum(:amount)
 		@last_10_bills = CourierBill.last_10_bills(user: current_user)
+		@today_bills_total_amount = @today_bills.sum(:total)
 		@courier = CourierBill.find(params[:id])
 		render 'index'
 	end

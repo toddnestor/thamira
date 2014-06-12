@@ -3,7 +3,7 @@ class Ability
 
   def initialize(user)
     if user and user.admin?
-        can :manage, [User, EbBill, CourierBill]
+        can :manage, [User, EbBill, CourierBill, PaymentsBill]
         can [:read,:update, :create], AdminUser
         can :destroy, AdminUser do |u|
             u != user
@@ -16,6 +16,18 @@ class Ability
         end
         can [:index, :create, :search, :export], CourierBill
         can [:update, :edit, :print], CourierBill do |bill|
+            bill.user == user
+        end
+        can [:index, :create, :search, :export], PaymentsBill
+        can [:update, :edit, :print], PaymentsBill do |bill|
+            bill.user == user
+        end
+        can [:index, :create, :search, :export], ClothsBill
+        can [:update, :edit, :print], ClothsBill do |bill|
+            bill.user == user
+        end
+        can [:index, :create, :search, :export], ServiceBill
+        can [:update, :edit, :print], ServiceBill do |bill|
             bill.user == user
         end
     end
