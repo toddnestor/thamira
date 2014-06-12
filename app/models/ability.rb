@@ -30,6 +30,10 @@ class Ability
         can [:update, :edit, :print], ServiceBill do |bill|
             bill.user == user
         end
+        can [:index, :create, :search, :export], TicketBill
+        can [:update, :edit, :print], TicketBill do |bill|
+            bill.user == user
+        end
     end
     # Define abilities for the passed in user here. For example:
     #

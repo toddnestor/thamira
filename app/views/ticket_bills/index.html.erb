@@ -1,27 +1,27 @@
 <% content_for(:page_title) do %>
-  Payments Bill
+  Ticket Bill
   <small><%= link_to "Courier Bill", courier_bills_path %> | </small>
-  <small><%= link_to "Clothes Bill", cloths_bills_path %> | </small>
-  <small><%= link_to "Ticket Bill", ticket_bills_path %> | </small>
+  <small><%= link_to "EB Bill", eb_bills_path %> | </small>
   <small><%= link_to "Service Bill", service_bills_path %> | </small>
-  <small><%= link_to "EB Bill", eb_bills_path %></small>
+  <small><%= link_to "Clothes Bill", cloths_bills_path %> | </small>
+  <small><%= link_to "Payments", payments_bills_path %></small>
 <% end %>
 <div class="container">
   <div class="row well">
     <div class="span10">
       <div class="form-inline pull-left">
-        <label>BILL NO: <b><%= @pb.bill_number %></b></label>
+        <label>BILL NO: <b><%= @cb.bill_number %></b></label>
         <label>DATE: <b><%= Time.zone.now.strftime("%A, %d %B") %></b></label>
         <label>TIME: <b><%= Time.zone.now.strftime("%I:%M %p") %></b></label>
       </div>
-      <%= link_to "New Bill",payments_bills_path, class:"pull-right btn btn-primary" %>
+      <%= link_to "New Bill", ticket_bills_path, class:"pull-right btn btn-primary" %>
     </div>
   </div>
 
   <div class='row'>
     <div class='span8'>
       <!-- <form class="form-horizontal"> -->
-      <%= form_for @pb, html: {class: "form-horizontal"} do |f| %>
+      <%= form_for @cb, html: {class: "form-horizontal"} do |f| %>
         <div class="span6 no-left-margin">
           <div class="control-group">
             <!-- <label class="control-label">SERVICE NAME</label> -->
@@ -37,18 +37,19 @@
             <%= f.label :service_name, "SERVICE NAME", class: "control-label" %>
             <div class="controls">
               <!-- <input type="text" placeholder="Enter Service Number"> -->
-              <%= f.select :service_name, options_for_select(["LANDLINE","POSTPAID","PREPAID","DTH"]) %>
+              <%= f.select :service_name, options_for_select(["BUS","TRAIN","FLIGHT"]) %>
             </div>
           </div>
 
           <div class="control-group">
-            <!-- <label class="control-label">SERVICE NUMBER</label> -->
-            <%= f.label :network, "NETWORK", class: "control-label" %>
+            <!-- <label class="control-label">MOBILE NUMBER</label> -->
+            <%= f.label :ticket_number, "TICKET NUMBER", class: "control-label" %>
             <div class="controls">
-              <!-- <input type="text" placeholder="Enter Service Number"> -->
-              <%= f.text_field :network, placeholder: "Enter Network" %>
+              <!-- <input type="text" placeholder="Enter Mob. Number"> -->
+              <%= f.text_field :ticket_number, placeholder: "Enter Ticket Number" %>
             </div>
           </div>
+
           <div class="control-group">
             <!-- <label class="control-label">MOBILE NUMBER</label> -->
             <%= f.label :mobile_number, "MOBILE NUMBER", class: "control-label" %>
@@ -87,7 +88,7 @@
         <!-- <button type="button" class="btn margin-bottom-20">Clear</button> -->
         <%= button_tag 'Clear!', class: "btn margin-bottom-20 clear_button" %>
         <!-- <form class="well well-small"> -->
-        <%= form_tag search_payments_bills_path, method: :get, class: "well well-small" do %>
+        <%= form_tag search_ticket_bills_path, method: :get, class: "well well-small" do %>
           <div class='margin-bottom-20'>
             <!-- <label class="inline-block", style="font-size:10px">Bill NO</label> -->
             <!-- <input type="text" class='span1 no-bottom-margin' placeholder="Bill No" id="eb_bill_number_text"> -->
@@ -109,7 +110,7 @@
         </tr>
         <% @last_10_bills.each do |bill|%>
           <tr>
-            <td><%= link_to bill.bill_number, edit_payments_bill_path(bill) %></td>
+            <td><%= link_to bill.bill_number, edit_ticket_bill_path(bill) %></td>
             <td><%= bill.mobile_number %></td>
             <td><%= bill.total %></td>
           </tr>

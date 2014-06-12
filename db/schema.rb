@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140612051839) do
+ActiveRecord::Schema.define(version: 20140612061839) do
 
   create_table "admin_users", force: true do |t|
     t.string   "email",                  default: "", null: false
@@ -106,6 +106,22 @@ ActiveRecord::Schema.define(version: 20140612051839) do
 
   add_index "service_bills", ["bill_number"], name: "index_service_bills_on_bill_number", unique: true
   add_index "service_bills", ["user_id"], name: "index_service_bills_on_user_id"
+
+  create_table "ticket_bills", force: true do |t|
+    t.string   "customer_name"
+    t.string   "service_name"
+    t.string   "mobile_number"
+    t.string   "ticket_number"
+    t.decimal  "amount"
+    t.decimal  "total"
+    t.string   "bill_number"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "ticket_bills", ["bill_number"], name: "index_ticket_bills_on_bill_number", unique: true
+  add_index "ticket_bills", ["user_id"], name: "index_ticket_bills_on_user_id"
 
   create_table "users", force: true do |t|
     t.string   "email",                  default: "", null: false
