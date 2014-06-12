@@ -1,4 +1,4 @@
-class ServiceBill < ActiveRecord::Migration
+class CreateServiceBills < ActiveRecord::Migration
   def change
   	create_table :service_bills do |t|
   	  t.string :customer_name
