@@ -38,7 +38,7 @@
             <%= f.label :service_name, "SERVICE NAME", class: "control-label" %>
             <div class="controls">
               <!-- <input type="text" placeholder="Enter Service Number"> -->
-              <%= f.select :service_name, options_for_select(["LANDLINE","POSTPAID","PREPAID","DTH"], :selected => @cb.service_name) %>
+              <%= f.select :service_name, options_for_select(["LANDLINE","POSTPAID","PREPAID","DTH"], :selected => @pb.service_name) %>
             </div>
           </div>
 
