@@ -2,6 +2,7 @@
   Ticket Bill
   <small><%= link_to "Courier Bill", courier_bills_path %> | </small>
   <small><%= link_to "EB Bill", eb_bills_path %> | </small>
+  <small><%= link_to "Enquiry", enquiries_path %> | </small>
   <small><%= link_to "Service Bill", service_bills_path %> | </small>
   <small><%= link_to "Clothes Bill", cloths_bills_path %> | </small>
   <small><%= link_to "Payments", payments_bills_path %></small>
@@ -37,7 +38,7 @@
             <%= f.label :service_name, "SERVICE NAME", class: "control-label" %>
             <div class="controls">
               <!-- <input type="text" placeholder="Enter Service Number"> -->
-              <%= f.select :service_name, options_for_select(["BUS","TRAIN","FLIGHT"]) %>
+              <%= f.select :service_name, options_for_select(["BUS","TRAIN","FLIGHT"], :selected => @cb.service_name) %>
             </div>
           </div>
 

@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
   has_many :cloths_bills
   has_many :eb_bills
   has_many :courier_bills
+  has_many :enquiries
 
   def admin?
   	false

@@ -1,0 +1,28 @@
+<html>
+	<head>
+	  <title>Thamira</title>
+	  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+	  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	  <%= csrf_meta_tags %>
+	</head>
+	<body>
+		<div class='well'>
+			<div class="clearfix">
+				<h1 class="text-center">THAMIRA ENTERPRISE</h1>
+				<div class='hidden-print margin-bottom-20 pull-right'>
+					<%= link_to "New Enquiry", enquiries_path, class: 'btn btn-primary' %>
+				</div>
+				<h3 class="text-center">C-RECEIPT FOR ENQUIRY</h3>
+				<% {"Date" => @enquiry.updated_at.to_date, "Enquiry Number" => @enquiry.bill_number, "Mobile Number" => @enquiry.mobile_number, "Service Name" => @enquiry.service_name}.each do |k,v| %>
+					<div class='span12'>
+							<div class='span6'><%= k %></div>
+							<div class='span5'><strong><%= v %></strong></div>
+					</div>
+				<% end %>
+			</div>
+		</div>
+		<script type="text/javascript">
+			window.print();
+		</script>
+	</body>
+</html>

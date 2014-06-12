@@ -1,8 +1,8 @@
 <% content_for(:page_title) do %>
-  Service Bill
+  Enquiry
   <small><%= link_to "Courier Bill", courier_bills_path %> | </small>
   <small><%= link_to "EB Bill", eb_bills_path %> | </small>
-  <small><%= link_to "Enquiry", enquiries_path %> | </small>
+  <small><%= link_to "Service Bill", service_bills_path %> | </small>
   <small><%= link_to "Ticket Bill", ticket_bills_path %> | </small>
   <small><%= link_to "Clothes Bill", cloths_bills_path %> | </small>
   <small><%= link_to "Payments", payments_bills_path %></small>
@@ -15,7 +15,7 @@
         <label>DATE: <b><%= Time.zone.now.strftime("%A, %d %B") %></b></label>
         <label>TIME: <b><%= Time.zone.now.strftime("%I:%M %p") %></b></label>
       </div>
-      <%= link_to "New Bill", service_bills_path, class:"pull-right btn btn-primary" %>
+      <%= link_to "New Enquiry", enquiries_path, class:"pull-right btn btn-primary" %>
     </div>
   </div>
 
@@ -38,7 +38,7 @@
             <%= f.label :service_name, "SERVICE NAME", class: "control-label" %>
             <div class="controls">
               <!-- <input type="text" placeholder="Enter Service Number"> -->
-              <%= f.select :service_name, options_for_select(["PAN CARD","PASSPORT","EXAM APPLICATIONS", "EPFO", "VEHICLE TAX PAYMENT"], :selected => @cb.service_name) %>
+              <%= f.select :service_name, options_for_select(["ADVERTISEMENT","CONSULTANCY","COMPUTERS","FOOD","OTHERS","MATRIMONY","SOFTWARES","TOURS","TICKETS","VEHICLE RENTAL"], :selected => @cb.service_name) %>
             </div>
           </div>
 
@@ -48,22 +48,6 @@
             <div class="controls">
               <!-- <input type="text" placeholder="Enter Mob. Number"> -->
               <%= f.text_field :mobile_number, placeholder: "Enter Mob. Number" %>
-            </div>
-          </div>
-          <div class="control-group">
-            <!-- <label class="control-label">AMOUNT</label> -->
-            <%= f.label :amount, "AMOUNT", class: "control-label" %>
-            <div class="controls">
-              <!-- <input type="text" placeholder="Enter Amount"> -->
-              <%= f.text_field :amount, placeholder: "Enter Amount" %>
-            </div>
-          </div>
-          <div class="control-group">
-            <!-- <label class="control-label">TOTAL</label> -->
-            <%= f.label :total, "TOTAL", class: "control-label" %>
-            <div class="controls">
-              <!-- <input type="text" disabled placeholder="Final Amount Payable"> -->
-              <%= f.text_field :total, placeholder: "Final Amount Payable", disabled: true %>
             </div>
           </div>
         </div>
@@ -80,11 +64,11 @@
         <!-- <button type="button" class="btn margin-bottom-20">Clear</button> -->
         <%= button_tag 'Clear!', class: "btn margin-bottom-20 clear_button" %>
         <!-- <form class="well well-small"> -->
-        <%= form_tag search_service_bills_path, method: :get, class: "well well-small" do %>
+        <%= form_tag search_enquiries_path, method: :get, class: "well well-small" do %>
           <div class='margin-bottom-20'>
             <!-- <label class="inline-block", style="font-size:10px">Bill NO</label> -->
             <!-- <input type="text" class='span1 no-bottom-margin' placeholder="Bill No" id="eb_bill_number_text"> -->
-            <%= text_field_tag 'search', params[:search], placeholder: "Bill No", class: "no-bottom-margin", id: "bill_search", style:"width:80%;font-size:12px" %>
+            <%= text_field_tag 'search', params[:search], placeholder: "Enquiry No", class: "no-bottom-margin", id: "bill_search", style:"width:80%;font-size:12px" %>
           </div>
           <!-- <button type="button" class="btn btn-primary">Search</button> -->
           <%= submit_tag "Search", class: "btn btn-primary search_button" %>
@@ -96,15 +80,13 @@
       <span class="label label-info margin-bottom-10">Last 10 Bills</span>
       <table class="table table-bordered table-condensed">
         <tr>
-          <th>Bill No.</th>
+          <th>Enquiry No.</th>
           <th>Mobile No.</th>
-          <th>Total Amt</th>
         </tr>
         <% @last_10_bills.each do |bill|%>
           <tr>
-            <td><%= link_to bill.bill_number, edit_service_bill_path(bill) %></td>
+            <td><%= link_to bill.bill_number, edit_enquiry_path(bill) %></td>
             <td><%= bill.mobile_number %></td>
-            <td><%= bill.total %></td>
           </tr>
         <% end %>
       </table>
@@ -123,14 +105,14 @@
       <span class="label label-info margin-bottom-10">Todays Report</span>
       <table class="table table-bordered table-condensed">
         <tr>
-          <th>Total Bills</th>
+          <th>Total Enquiries</th>
           <th>Total Amt</th>
           <th>Total Bill Amt</th>
         </tr>
         <tr>
           <td><%= @today_bills.length %></td>
-          <td><%= @today_bills_total_amount - @today_bills_amount %></td>
-          <td><%= @today_bills_total_amount %></td>
+          <td> - </td>
+          <td> - </td>
         </tr> 
       </table>
     </div>
