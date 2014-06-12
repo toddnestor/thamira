@@ -11,7 +11,7 @@ payments_ready = ->
 	# Fill Total Amount
 	$('#payments_bill_amount').keyup ->
 		amt = parseFloat($('#payments_bill_amount').val())
-		tot = if (amt != "" && !isNaN(amt) ) then (if (amt > 100) then (amt + 10) else (amt + 5)) else ''
+		tot = if (amt != "" && !isNaN(amt) ) then (if (amt > 100) then (amt + 20) else (amt + 20)) else ''
 		$('#payments_bill_total').val tot
 $(document).ready(payments_ready)
 $(document).on("page:load", payments_ready)

@@ -44,6 +44,6 @@ class PaymentsBill < ActiveRecord::Base
 		self.bill_number = self.bill_number
 	end
 	def set_total
-		self.total = self.amount + ((self.amount >= 100) ? 10 : 5) if self.amount
+		self.total = self.amount + ((self.amount >= 100) ? 20 : 20) if self.amount
 	end
 end

@@ -11,7 +11,7 @@ cloths_ready = ->
 	# Fill Total Amount
 	$('#cloths_bill_amount').keyup ->
 		amt = parseFloat($('#cloths_bill_amount').val())
-		tot = if (amt != "" && !isNaN(amt) ) then (if (amt > 100) then (amt + 10) else (amt + 5)) else ''
+		tot = if (amt != "" && !isNaN(amt) ) then (if (amt > 100) then (amt + 0) else (amt + 0)) else ''
 		$('#cloths_bill_total').val tot
 $(document).ready(cloths_ready)
 $(document).on("page:load", cloths_ready)

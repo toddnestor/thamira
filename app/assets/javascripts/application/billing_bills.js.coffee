@@ -10,7 +10,7 @@ billing_ready = ->
 	# Fill Total Amount
 	$('#billing_bill_amount').keyup ->
 		amt = parseFloat($('#billing_bill_amount').val())
-		tot = if (amt != "" && !isNaN(amt) ) then (if (amt > 100) then (amt + 10) else (amt + 5)) else ''
+		tot = if (amt != "" && !isNaN(amt) ) then (if (amt > 100) then (amt + 0) else (amt + 0)) else ''
 		$('#billing_bill_total').val tot
 $(document).ready(billing_ready)
 $(document).on("page:load", billing_ready)
