@@ -1,11 +1,12 @@
 <% content_for(:page_title) do %>
   Ticket Bill
+  <small><%= link_to "Billing", billing_bills_path %> | </small>
+  <small><%= link_to "Clothes Bill", cloths_bills_path %> | </small>
   <small><%= link_to "Courier Bill", courier_bills_path %> | </small>
   <small><%= link_to "EB Bill", eb_bills_path %> | </small>
   <small><%= link_to "Enquiry", enquiries_path %> | </small>
-  <small><%= link_to "Service Bill", service_bills_path %> | </small>
-  <small><%= link_to "Clothes Bill", cloths_bills_path %> | </small>
-  <small><%= link_to "Payments", payments_bills_path %></small>
+  <small><%= link_to "Payments", payments_bills_path %> | </small>
+  <small><%= link_to "Service Bill", service_bills_path %></small>
 <% end %>
 <div class="container">
   <div class="row well">
@@ -138,7 +139,7 @@
         </tr>
         <tr>
           <td><%= @today_bills.length %></td>
-          <td><%= @today_bills_total_amount - @today_bills_amount %></td>
+          <td><%= (@today_bills_total_amount - @today_bills_amount) * 0.8 %></td>
           <td><%= @today_bills_total_amount %></td>
         </tr> 
       </table>

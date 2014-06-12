@@ -11,7 +11,7 @@ service_ready = ->
 	# Fill Total Amount
 	$('#service_bill_amount').keyup ->
 		amt = parseFloat($('#service_bill_amount').val())
-		tot = if (amt != "" && !isNaN(amt) ) then (if (amt >= 100) then (amt + 8) else (amt + 4)) else ''
+		tot = if (amt != "" && !isNaN(amt) ) then (if (amt > 100) then (amt + 10) else (amt + 5)) else ''
 		$('#service_bill_total').val tot
 $(document).ready(service_ready)
 $(document).on("page:load", service_ready)

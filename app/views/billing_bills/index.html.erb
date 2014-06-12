@@ -1,11 +1,11 @@
 <% content_for(:page_title) do %>
-  Service Bill
-  <small><%= link_to "Billing", billing_bills_path %> | </small>
+  Billing
   <small><%= link_to "Clothes Bill", cloths_bills_path %> | </small>
   <small><%= link_to "Courier Bill", courier_bills_path %> | </small>
   <small><%= link_to "EB Bill", eb_bills_path %> | </small>
   <small><%= link_to "Enquiry", enquiries_path %> | </small>
   <small><%= link_to "Payments", payments_bills_path %> | </small>
+  <small><%= link_to "Service Bill", service_bills_path %> | </small>
   <small><%= link_to "Ticket Bill", ticket_bills_path %></small>
 <% end %>
 <div class="container">
@@ -16,7 +16,7 @@
         <label>DATE: <b><%= Time.zone.now.strftime("%A, %d %B") %></b></label>
         <label>TIME: <b><%= Time.zone.now.strftime("%I:%M %p") %></b></label>
       </div>
-      <%= link_to "New Bill", service_bills_path, class:"pull-right btn btn-primary" %>
+      <%= link_to "New Bill",billing_bills_path, class:"pull-right btn btn-primary" %>
     </div>
   </div>
 
@@ -39,7 +39,7 @@
             <%= f.label :service_name, "SERVICE NAME", class: "control-label" %>
             <div class="controls">
               <!-- <input type="text" placeholder="Enter Service Number"> -->
-              <%= f.select :service_name, options_for_select(["PAN CARD","PASSPORT","EXAM APPLICATIONS", "EPFO", "VEHICLE TAX PAYMENT"], :selected => @cb.service_name) %>
+              <%= f.select :service_name, options_for_select(["ADVERTISEMENT","CONSULTANCY","COMPUTERS","FOOD","OTHERS","MATRIMONY","SOFTWARES","TOURS","TICKETS","VEHICLE RENTAL"], :selected => @cb.service_name) %>
             </div>
           </div>
 
@@ -81,7 +81,7 @@
         <!-- <button type="button" class="btn margin-bottom-20">Clear</button> -->
         <%= button_tag 'Clear!', class: "btn margin-bottom-20 clear_button" %>
         <!-- <form class="well well-small"> -->
-        <%= form_tag search_service_bills_path, method: :get, class: "well well-small" do %>
+        <%= form_tag search_billing_bills_path, method: :get, class: "well well-small" do %>
           <div class='margin-bottom-20'>
             <!-- <label class="inline-block", style="font-size:10px">Bill NO</label> -->
             <!-- <input type="text" class='span1 no-bottom-margin' placeholder="Bill No" id="eb_bill_number_text"> -->
@@ -103,7 +103,7 @@
         </tr>
         <% @last_10_bills.each do |bill|%>
           <tr>
-            <td><%= link_to bill.bill_number, edit_service_bill_path(bill) %></td>
+            <td><%= link_to bill.bill_number, edit_billing_bill_path(bill) %></td>
             <td><%= bill.mobile_number %></td>
             <td><%= bill.total %></td>
           </tr>

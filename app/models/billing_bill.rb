@@ -1,13 +1,13 @@
-class TicketBill < ActiveRecord::Base
+class BillingBill < ActiveRecord::Base
 	belongs_to :user
-	validates :service_name, :customer_name, :mobile_number, :ticket_number, :amount, :total, :bill_number, :user, presence: true
+	validates :service_name, :customer_name, :mobile_number, :amount, :total, :bill_number, :user, presence: true
 	validates :amount, :total, numericality: {greater_than: 0}
 	validates :bill_number, uniqueness: true
 	before_validation :set_bill_number, :set_total
 
 	def bill_number
 		return super if self.persisted?
-		last_bill_number = TicketBill.today_bills.first.try(:bill_number)
+		last_bill_number = BillingBill.today_bills.first.try(:bill_number)
 		if last_bill_number.nil?
 			bill_no = "#{Time.zone.now.strftime("%y%m%d")}-0001"
 		else
